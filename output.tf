@@ -8,8 +8,3 @@ output "woker_node_public_ip" {
   value       = ["${aws_instance.worker.*.public_ip}"]
 }
 
-# output "private_key" {
-#     value = module.key_pair.private_key_pem
-#     sensitive = true
-
-# }
