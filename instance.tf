@@ -11,7 +11,7 @@ data "aws_vpc" "default" {
 # Create Key Pair for SSH access
 resource "aws_key_pair" "ssh_key" {
   key_name   = "terraform_key"
-  public_key = file("~/.ssh/my-aws-keypair.pub") # Change path accordingly
+  public_key = file("./my-aws-keypair.pub") # Change path accordingly
 }
 
 resource "aws_instance" "master" {
