@@ -25,7 +25,7 @@ resource "aws_instance" "master" {
 
   # the public SSH key
   key_name  = aws_key_pair.ssh_key.key_name # Use the created key pair for SSH access
-  user_data = local.template_file_int
+  user_data = local.master_template
 
   tags = {
     Name                            = "kube-master"
@@ -46,7 +46,7 @@ resource "aws_instance" "worker" {
 
   # the public SSH key
   key_name  = aws_key_pair.ssh_key.key_name
-  user_data = local.template_file_int
+  user_data = local.worker_template
 
   tags = {
     Name                            = "kube-worker"
@@ -57,7 +57,8 @@ resource "aws_instance" "worker" {
   }
 }
 
-
 locals {
-  template_file_int = templatefile("./install_docker_kubectl.tpl", {})
+  master_template = templatefile("./master.tpl", {})
+  worker_template = templatefile("./worker.tpl", {})
 }
+
