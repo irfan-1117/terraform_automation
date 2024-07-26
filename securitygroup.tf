@@ -27,6 +27,13 @@ resource "aws_security_group" "webserver-sg" {
   vpc_id = data.aws_vpc.default.id
   name   = "webserver-securitygrp"
 
+    ingress {
+    protocol    = "tcp"
+    from_port   = 8000
+    to_port     = 8000
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   ingress {
     protocol    = "tcp"
     from_port   = 8080

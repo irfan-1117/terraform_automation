@@ -14,7 +14,7 @@ resource "aws_key_pair" "ssh_key" {
   public_key = file("./my-aws-keypair.pub") # Change path accordingly
 }
 
-resource "aws_instance" "jenkins" {
+/*resource "aws_instance" "jenkins" {
   ami                         = var.AMIS[var.AWS_REGION]
   instance_type               = var.instance_type
   associate_public_ip_address = true
@@ -33,7 +33,7 @@ resource "aws_instance" "jenkins" {
     type    = "terraform"
     created = "terraform"
   }
-}
+}*/
 
 resource "aws_instance" "webserver" {
   ami                  = var.AMIS[var.AWS_REGION]
@@ -57,7 +57,7 @@ resource "aws_instance" "webserver" {
 
 locals {
   webserver_file_int = templatefile("./install_webserver.tpl", {})
-  jenkins_file_int   = templatefile("./install_jenkins.tpl", {})
+  #jenkins_file_int   = templatefile("./install_jenkins.tpl", {})
 }
 
 
