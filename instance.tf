@@ -21,7 +21,7 @@ resource "aws_instance" "jenkins" {
   iam_instance_profile        = aws_iam_instance_profile.ec2_profile.name
 
   # the security group
-  vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.webserver-sg]
+  vpc_security_group_ids = [aws_security_group.allow-ssh.id,aws_security_group.webserver-sg.id]
 
   # the public SSH key
   key_name  = aws_key_pair.ssh_key.key_name # Use the created key pair for SSH access
@@ -41,7 +41,7 @@ resource "aws_instance" "webserver" {
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
   # the security group
-  vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.webserver-sg]
+  vpc_security_group_ids = [aws_security_group.allow-ssh.id,aws_security_group.webserver-sg.id]
 
   # the public SSH key
   key_name  = aws_key_pair.ssh_key.key_name
