@@ -41,11 +41,11 @@ resource "aws_instance" "webserver" {
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
   # the security group
-  vpc_security_group_ids = [aws_security_group.allow-ssh.id,aws_security_group.webserver-sg.id]
+  vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.webserver-sg.id]
 
   # the public SSH key
   key_name  = aws_key_pair.ssh_key.key_name
-  user_data = local.webserver_file_int
+  user_data = local.template_file_int
 
   tags = {
     Name    = "webserver"
@@ -56,9 +56,7 @@ resource "aws_instance" "webserver" {
 }
 
 locals {
-  webserver_file_int = templatefile("./install_webserver.tpl", {})
-  #jenkins_file_int   = templatefile("./install_jenkins.tpl", {})
+  template_file_int = templatefile("./install.tpl", {})
 }
-
 
 
