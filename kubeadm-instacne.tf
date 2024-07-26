@@ -57,7 +57,9 @@ resource "aws_instance" "worker" {
   }
 }
 
-
 locals {
-  template_file_int = templatefile("./install_docker_kubectl.tpl", {})
+   template_file_int  = templatefile("./install_docker_kubectl.tpl", {})
 }
+
+
+
