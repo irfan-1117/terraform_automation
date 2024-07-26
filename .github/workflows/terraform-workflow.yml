@@ -1,4 +1,4 @@
-name: Create and Destroy Kubeadm kubernetes cluster setup in Amazon EC2 
+name: Create and Destroy Application webserver on AWS platform
 
 on:
   push:
