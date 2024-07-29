@@ -1,6 +1,6 @@
-# Create an IAM Role
-resource "aws_iam_role" "ecr_role" {
-  name = "ecr_role"
+# Create a combined IAM Role for EC2 with ECR, ECS, and Lambda S3 permissions
+resource "aws_iam_role" "combined_role" {
+  name = "combined_role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -16,10 +16,10 @@ resource "aws_iam_role" "ecr_role" {
   })
 }
 
-# Attach the ECR policy to the role
-resource "aws_iam_role_policy" "ecr_policy" {
-  name   = "ecr_policy"
-  role   = aws_iam_role.ecr_role.id
+# Attach the combined policy to the role
+resource "aws_iam_role_policy" "combined_policy" {
+  name   = "combined_policy"
+  role   = aws_iam_role.combined_role.id
 
   policy = jsonencode({
     Version = "2012-10-17",
@@ -58,7 +58,24 @@ resource "aws_iam_role_policy" "ecr_policy" {
           "ecr:TagResource",
           "ecr:UntagResource",
           "ecr:DescribeReplicationConfigurations",
-          "ecr:PutReplicationConfiguration"
+          "ecr:PutReplicationConfiguration",
+          "ecr:GetAuthorizationToken",
+          "ecs:CreateCluster",
+          "ecs:DeregisterContainerInstance",
+          "ecs:DiscoverPollEndpoint",
+          "ecs:Poll",
+          "ecs:RegisterContainerInstance",
+          "ecs:StartTelemetrySession",
+          "ecs:UpdateContainerInstancesState",
+          "ecs:Submit*",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "s3:ListBucket",
+          "s3:GetObject",
+          "s3:PutObject",
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
         ],
         Resource = "*"
       }
@@ -67,8 +84,7 @@ resource "aws_iam_role_policy" "ecr_policy" {
 }
 
 # Attach the role to an instance profile
-resource "aws_iam_instance_profile" "ecr_instance_profile" {
-  name = "ecr_instance_profile"
-  role = aws_iam_role.ecr_role.name
+resource "aws_iam_instance_profile" "combined_instance_profile" {
+  name = "combined_instance_profile"
+  role = aws_iam_role.combined_role.name
 }
-
