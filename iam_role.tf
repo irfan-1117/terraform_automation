@@ -1,43 +1,74 @@
-# Create IAM role
-resource "aws_iam_role" "ec2_role" {
-  name = "ec2_role"
+# Create an IAM Role
+resource "aws_iam_role" "ecr_role" {
+  name = "ecr_role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Action = "sts:AssumeRole",
         Effect = "Allow",
         Principal = {
           Service = "ec2.amazonaws.com"
-        }
+        },
+        Action = "sts:AssumeRole"
       }
     ]
   })
 }
 
-# Attach a policy to the role
-resource "aws_iam_role_policy" "ec2_policy" {
-  name = "ec2_policy"
-  role = aws_iam_role.ec2_role.id
+# Attach the ECR policy to the role
+resource "aws_iam_role_policy" "ecr_policy" {
+  name   = "ecr_policy"
+  role   = aws_iam_role.ecr_role.id
 
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
+        Effect = "Allow",
         Action = [
-          "s3:*",
-          "ec2:*"
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:PutImage",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:CompleteLayerUpload",
+          "ecr:DescribeRepositories",
+          "ecr:ListImages",
+          "ecr:CreateRepository",
+          "ecr:DeleteRepository",
+          "ecr:DeleteRepositoryPolicy",
+          "ecr:DescribeImages",
+          "ecr:GetRepositoryPolicy",
+          "ecr:ListTagsForResource",
+          "ecr:TagResource",
+          "ecr:UntagResource",
+          "ecr:SetRepositoryPolicy",
+          "ecr:DeleteRepositoryPolicy",
+          "ecr:DescribeImageScanFindings",
+          "ecr:StartImageScan",
+          "ecr:StartLifecyclePolicyPreview",
+          "ecr:DeleteLifecyclePolicy",
+          "ecr:GetLifecyclePolicy",
+          "ecr:PutLifecyclePolicy",
+          "ecr:DescribePullThroughCacheRules",
+          "ecr:CreatePullThroughCacheRule",
+          "ecr:DeletePullThroughCacheRule",
+          "ecr:TagResource",
+          "ecr:UntagResource",
+          "ecr:DescribeReplicationConfigurations",
+          "ecr:PutReplicationConfiguration"
         ],
-        Effect   = "Allow",
         Resource = "*"
       }
     ]
   })
 }
 
-# Create IAM instance profile
-resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "ec2_profile"
-  role = aws_iam_role.ec2_role.name
+# Attach the role to an instance profile
+resource "aws_iam_instance_profile" "ecr_instance_profile" {
+  name = "ecr_instance_profile"
+  role = aws_iam_role.ecr_role.name
 }
+
