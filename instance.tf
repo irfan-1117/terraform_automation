@@ -48,7 +48,7 @@ resource "aws_instance" "webserver" {
   user_data = local.template_file_int
 
   tags = {
-    Name    = "automation-server"
+    Name    = "webserver"
     Role    = "app"
     type    = "terraform"
     created = "terraform"
