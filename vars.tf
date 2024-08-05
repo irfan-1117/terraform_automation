@@ -17,13 +17,13 @@ variable "subnet" {
 
 variable "instance_type" {
   type        = string
-  default     = "t2.micro"
+  default     = "t2.medium"
   description = "description"
 }
 
-variable "ecrrepo" {
+/*variable "ecrrepo" {
   type    = string
   default = "techieirfan-repo"
-}
+}*/
 
 
