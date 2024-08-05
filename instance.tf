@@ -29,7 +29,7 @@ resource "aws_instance" "jenkins" {
 
   root_block_device {
     volume_type           = "gp3"
-    volume_size           = "20"
+    volume_size           = "23"
     delete_on_termination = true
   }
 
