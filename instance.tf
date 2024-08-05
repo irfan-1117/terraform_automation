@@ -28,7 +28,7 @@ resource "aws_instance" "jenkins" {
   user_data = templatefile("${path.module}/scripts/jenkins.sh", {})
 
   root_block_device {
-    volume_type           = "gp2"
+    volume_type           = "gp3"
     volume_size           = "16"
     delete_on_termination = true
   }
@@ -55,7 +55,7 @@ resource "aws_instance" "webserver" {
   user_data = templatefile("${path.module}/scripts/docker.sh", {})
 
   root_block_device {
-    volume_type           = "gp2"
+    volume_type           = "gp3"
     volume_size           = "16"
     delete_on_termination = true
   }
