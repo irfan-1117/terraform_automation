@@ -21,9 +21,5 @@ variable "instance_type" {
   description = "description"
 }
 
-/*variable "ecrrepo" {
-  type    = string
-  default = "techieirfan-repo"
-}*/
 
 
