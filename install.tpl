@@ -19,6 +19,7 @@ chmod +x /usr/local/bin/docker-compose
 #docker container run -d -p 8080:8080 --name appserver tomcat:latest
 
 # install python pip package
+apt-get update -y
 apt install python3-pip -y
 
 # install awscli
@@ -26,4 +27,8 @@ sudo apt install unzip -y
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
-#cat aws s3 ls
+
+
+
+
+

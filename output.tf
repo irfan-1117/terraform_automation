@@ -13,3 +13,7 @@ output "webserver_public_ip" {
   value       = ["${aws_instance.worker.*.public_ip}"]
 }*/
 
+
+output "repository_url" {
+  value = aws_ecr_repository.image-repo.repository_url
+}
