@@ -27,6 +27,12 @@ resource "aws_instance" "jenkins" {
   key_name  = aws_key_pair.ssh_key.key_name # Use the created key pair for SSH access
   user_data = templatefile("${path.module}/scripts/jenkins.sh", {})
 
+  root_block_device {
+    volume_type           = "gp2"
+    volume_size           = "16"
+    delete_on_termination = true
+  }
+
 
   tags = {
     Name    = "jenkins"
@@ -47,6 +53,13 @@ resource "aws_instance" "webserver" {
   # the public SSH key
   key_name  = aws_key_pair.ssh_key.key_name
   user_data = templatefile("${path.module}/scripts/docker.sh", {})
+
+  root_block_device {
+    volume_type           = "gp2"
+    volume_size           = "16"
+    delete_on_termination = true
+  }
+
 
   tags = {
     Name    = "webserver"
