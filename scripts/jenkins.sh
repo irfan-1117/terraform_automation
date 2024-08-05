@@ -22,6 +22,3 @@ sudo systemctl start Jenkins
 sudo systemctl enable Jenkins
 sudo systemctl status Jenkins
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-
-
-
