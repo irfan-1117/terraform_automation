@@ -21,7 +21,7 @@ resource "aws_instance" "jenkins" {
   iam_instance_profile        = aws_iam_instance_profile.combined_instance_profile.name
 
   # the security group
-  vpc_security_group_ids = [aws_security_group.allow-ssh.id,aws_security_group.webserver-sg.id]
+  vpc_security_group_ids = [aws_security_group.allow-ssh.id, aws_security_group.webserver-sg.id]
 
   # the public SSH key
   key_name  = aws_key_pair.ssh_key.key_name # Use the created key pair for SSH access
@@ -42,7 +42,7 @@ resource "aws_instance" "jenkins" {
   }
 }
 
-resource "aws_instance" "webserver" {
+/*resource "aws_instance" "webserver" {
   ami                  = var.AMIS[var.AWS_REGION]
   instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.combined_instance_profile.name
@@ -67,7 +67,7 @@ resource "aws_instance" "webserver" {
     type    = "terraform"
     created = "terraform"
   }
-}
+}*/
 
 
 
