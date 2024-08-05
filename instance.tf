@@ -27,7 +27,7 @@ resource "aws_instance" "jenkins" {
   key_name  = aws_key_pair.ssh_key.key_name # Use the created key pair for SSH access
   #user_data = local.jenkins_file_int
  
-  user_data_base64 = base64encode(templatefile("scripts/jenkins.sh"))
+  user_data = templatefile("${path.module}/scripts/jenkins.sh", {})
 
 
   tags = {
@@ -49,7 +49,7 @@ resource "aws_instance" "webserver" {
   # the public SSH key
   key_name  = aws_key_pair.ssh_key.key_name
   #user_data = local.template_file_int
-  user_data_base64 = base64encode(templatefile("scripts/docker.sh"))
+  user_data = templatefile("${path.module}/scripts/docker.sh", {})
 
   tags = {
     Name    = "webserver"
